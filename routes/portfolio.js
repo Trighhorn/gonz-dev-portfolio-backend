@@ -1,16 +1,18 @@
 const express = require("express")
 const router = express.Router()
 
+const PortfolioItem = require('../models/portfolio')
+
 //gets all items
 
-router.get('/', (req, res) => {
-    res.send('Hello from portfolio route')
+router.get('/', async (req, res) => {
+
 })
 
 // gets one item
 
 router.get('/:id', (req, res) => {
-
+    res.send(req.params.id)
 })
 
 // create a new item
