@@ -44,8 +44,16 @@ router.patch("/:id", getPortfolioItem, (req, res) => {});
 
 //deletes item
 
-router.delete("/:id", getPortfolioItem, (req, res) => {});
+router.delete("/:id", getPortfolioItem, async (req, res) => {
+    try {
+        await res.portfolioItem.remove()
+        res.json({ message: "Deleted Portfolio Item" })
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+});
 
+// middle ware to get id
 async function getPortfolioItem(req, res, next) {
   let portfolioItem;
   try {
