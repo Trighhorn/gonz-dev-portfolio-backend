@@ -1,7 +1,21 @@
-const express = require('express')
-const app = express()
-const mongoose = require('mongoose')
-const PORT = 3000
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
 
+const app = express();
+const PORT = 3000;
 
-app.listen(PORT, () => console.log(`Server is Live on Port: ${PORT}`))
+app.use(cors());
+app.use(express.json());
+
+mongoose.connect("mongodb://localhost/portfolio", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection
+
+db.on('error', (err) => console.error(err))
+db.once('open', () => console.log('Database is open and live'))
+
+app.listen(PORT, () => console.log(`Server is Live on Port: ${PORT}`));
