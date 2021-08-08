@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
@@ -23,4 +23,11 @@ app.use("/portfolio", portfolioRouter);
 db.on("error", (err) => console.error(err));
 db.once("open", () => console.log("Database is open and live"));
 
-app.listen(PORT, () => console.log(`Server is Live on Port: ${PORT}`));
+app.get("/", (req, res) => {
+  res.send("theres no front end here to see data go to");
+});
+
+const server = app.listen(PORT, () => {
+  const host = server.address().address;
+  console.log(`Server is Live on http://${host}:${PORT}`);
+});
